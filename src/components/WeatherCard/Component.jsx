@@ -7,26 +7,47 @@ import Condition from './Condition'
 
 const WeatherCard = (props) => {
 
-    const red = 100;
-    const Card = styled.div`
-      margin: 10px auto;
-      background: linear-gradient(to bottom, rgba(${red},200,200), pink);
-      width: 200px;
-      height: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      border-radius: 15px;
-    `;
+  let highColor = 0
+  let lowColor = 0
+  let bg = null
 
-    return (
-      <Card>
-        <Location/>
-        <Icon/>
-        <Condition/>
-      </Card>
-    );
+  if(props.temp>12){
+    highColor = (1 - (props.temp - 12) / 28) * 255;
+    lowColor = highColor - 150;
+    bg = `linear-gradient(
+      to top,
+      rgba(255,${highColor},0), 
+      rgb(255,${lowColor},0)
+    );`;
+  }
+  else if(props.temp <= 12){
+    highColor = (1 - (props.temp +20) / 32) * 255;
+    lowColor = highColor - 150;
+    bg = `linear-gradient(
+      to top,
+      rgba(0,${highColor},255), 
+      rgb(0,${lowColor},255)
+    );`;
+  }
+  const Card = styled.div`
+    margin: 0px auto;
+    background: ${bg};
+    width: 200px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 15px;
+  `;
+
+  return (
+    <Card>
+      <Location/>
+      <Icon/>
+      <Condition/>
+    </Card>
+  );
 }
 
 export default WeatherCard;

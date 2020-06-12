@@ -6,7 +6,9 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <WeatherCard/>
+      <WeatherCard temp={-5}/>
+      <WeatherCard temp={-10}/>
+      <WeatherCard temp="40"/>
     </div>
   );
 }
